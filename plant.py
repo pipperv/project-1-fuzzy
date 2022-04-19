@@ -34,6 +34,8 @@ rules = [[          ng, de_a(ng,pp), pg],
 		 [ de_a(ng,np), de_a(pm,pg), pg],
 		 [ de_a(pp,pg), de_a(ng,nm), ng]]
 
+def get_rules():
+    return rules
 #
 def compute_plant(method,P0,PO=700,K=0.7,points=50):
 	# Entrega una lista del valor de P en cada instancia de tiempo
@@ -46,6 +48,7 @@ def compute_plant(method,P0,PO=700,K=0.7,points=50):
 	points-=1
 
 	P_list = [P0]
+	t_rules_list = []
 
 	for t in range(points):
 		TP = EP
@@ -61,8 +64,9 @@ def compute_plant(method,P0,PO=700,K=0.7,points=50):
 		dP = K * dH
 		P += dP
 		P_list.append(P)
+		t_rules_list.append(t_rules)
 
-	return P_list
+	return P_list, t_rules_list
 
 #plt.figure()
 #plt.plot(range(points+1),P_list)

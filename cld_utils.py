@@ -59,10 +59,13 @@ def FIS(E1, E2, rules, method="COG", samples=41, ran=[-1.0,1.0]):
     sampling = numpy.arange(ran[0],ran[1],step=d/samples)
     out = numpy.zeros_like(sampling)
     t_rules = []
+    h_per_rule = []
     for n, rule in enumerate(rules):
         h = min(memb_grade(E1,rule[0]),
           memb_grade(E2,rule[1]))
-        if h>0: t_rules.append(n+1)
+        #if h>0:
+        t_rules.append(n+1)
+        h_per_rule.append(h)
         for i, x in enumerate(sampling):
             f_x = min(h,memb_grade(x,rule[2]))
             out[i] = max(out[i],f_x)
@@ -89,4 +92,4 @@ def FIS(E1, E2, rules, method="COG", samples=41, ran=[-1.0,1.0]):
             mxs = sampling[idxs]
             S = numpy.mean(mxs)
     
-    return S, sampling, out, t_rules
+    return S, sampling, out, [t_rules,h_per_rule]
