@@ -17,7 +17,17 @@ P_MOM_850, TR_MOM_850 = compute_plant('MOM',850)
 
 #Plot de las curvas de P(t) vs t
 
-fig, axs = plt.subplots(3, 3, figsize=(12, 12))
+fig, axs = plt.subplots(3, 3, figsize=(12, 9))
+
+plt.subplots_adjust(left=0.1, 
+                    bottom=0.1,  
+                    right=0.9,  
+                    top=0.9,  
+                    wspace=0.4,  
+                    hspace=0.4)
+
+fig.subplots_adjust(top=0.9)
+fig.suptitle("Evolución de la Presión en distintos casos de Presión inicial y metodo de Des-difusión", fontsize=14)
 
 axs[0][0].plot(X,P_COG_600)
 axs[0][0].title.set_text("Centro de Gravedad y P0 = 600")
@@ -45,5 +55,12 @@ axs[2][1].title.set_text("Promedio de los Maximos y P0 = 720")
 
 axs[2][2].plot(X,P_MOM_850)
 axs[2][2].title.set_text("Promedio de los Maximos y P0 = 850")
+
+#Config for all plots:
+for i in range(3):
+    for j in range(3):
+        axs[i][j].set_xlabel("t")
+        axs[i][j].set_ylabel("P(t)")
+        axs[i][j].grid()
 
 plt.show()

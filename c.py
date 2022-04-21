@@ -1,74 +1,49 @@
 from plant import *
 import matplotlib.pyplot as plt
+import numpy
 
 X = range(50)
 
-P_COG_600, TR_COG_600 = compute_plant('COG',600)
-P_COG_720, TR_COG_720 = compute_plant('COG',720)
-P_COG_850, TR_COG_850 = compute_plant('COG',850)
+init_p = [600,720,850]
+methodes = ['COG','FOM','MOM']
 
-P_FOM_600, TR_FOM_600 = compute_plant('FOM',600)
-P_FOM_720, TR_FOM_720 = compute_plant('FOM',720)
-P_FOM_850, TR_FOM_850 = compute_plant('FOM',850)
+p_data = []
+tr_data = []
 
-P_MOM_600, TR_MOM_600 = compute_plant('MOM',600)
-P_MOM_720, TR_MOM_720 = compute_plant('MOM',720)
-P_MOM_850, TR_MOM_850 = compute_plant('MOM',850)
+for p in init_p:
+    tmp_p = []
+    tmp_tr = []
+    for m in methodes:
+        x, y = compute_plant(m,p)
+        tmp_p.append(x)
+        tmp_tr.append(y)
+    p_data.append(tmp_p)
+    tr_data.append(tmp_tr)
 
 fig, axs = plt.subplots(3, 3, figsize=(12, 12))
 
-axs[0][0].title.set_text("Reglas disparadas (COG , P0=600)")
-for i, tr in enumerate(TR_COG_600):
-    for r, h in zip(tr[0],tr[1]):
-        axs[0][0].plot(i,r,marker='o',color=(0,0,1,h))
-        axs[0][0].grid()
+plt.subplots_adjust(left=0.1, 
+                    bottom=0.1,  
+                    right=0.9,  
+                    top=0.9,  
+                    wspace=0.4,  
+                    hspace=0.4)
 
-axs[0][1].title.set_text("Reglas disparadas (COG , P0=720)")
-for i, tr in enumerate(TR_COG_720):
-    for r, h in zip(tr[0],tr[1]):
-        axs[0][1].plot(i,r,marker='o',color=(0,0,1,h))
-        axs[0][1].grid()
+fig.subplots_adjust(top=0.9)
+fig.suptitle("Reglas Disparadas en distintos casos de Presión inicial y metodo de Des-difusión", fontsize=14)
 
-axs[0][2].title.set_text("Reglas disparadas (COG , P0=850)")
-for i, tr in enumerate(TR_COG_850):
-    for r, h in zip(tr[0],tr[1]):
-        axs[0][2].plot(i,r,marker='o',color=(0,0,1,h))
-        axs[0][2].grid()
-
-axs[1][0].title.set_text("Reglas disparadas (FOM , P0=600)")
-for i, tr in enumerate(TR_FOM_600):
-    for r, h in zip(tr[0],tr[1]):
-        axs[1][0].plot(i,r,marker='o',color=(0,0,1,h))
-        axs[1][0].grid()
-
-axs[1][1].title.set_text("Reglas disparadas (FOM , P0=720)")
-for i, tr in enumerate(TR_FOM_720):
-    for r, h in zip(tr[0],tr[1]):
-        axs[1][1].plot(i,r,marker='o',color=(0,0,1,h))
-        axs[1][1].grid()
-
-axs[1][2].title.set_text("Reglas disparadas (FOM , P0=850)")
-for i, tr in enumerate(TR_FOM_850):
-    for r, h in zip(tr[0],tr[1]):
-        axs[1][2].plot(i,r,marker='o',color=(0,0,1,h))
-        axs[1][2].grid()
-
-axs[2][0].title.set_text("Reglas disparadas (MOM , P0=600)")
-for i, tr in enumerate(TR_MOM_600):
-    for r, h in zip(tr[0],tr[1]):
-        axs[2][0].plot(i,r,marker='o',color=(0,0,1,h))
-        axs[2][0].grid()
-
-axs[2][1].title.set_text("Reglas disparadas (MOM , P0=720)")
-for i, tr in enumerate(TR_MOM_720):
-    for r, h in zip(tr[0],tr[1]):
-        axs[2][1].plot(i,r,marker='o',color=(0,0,1,h))
-        axs[2][1].grid()
-
-axs[2][2].title.set_text("Reglas disparadas (MOM , P0=850)")
-for i, tr in enumerate(TR_MOM_850):
-    for r, h in zip(tr[0],tr[1]):
-        axs[2][2].plot(i,r,marker='o',color=(0,0,1,h))
-        axs[2][2].grid()
-
+for i, A in enumerate(tr_data):
+    for j, B in enumerate(A):
+        for n, tr in enumerate(B):
+            p = init_p[j]
+            m = methodes[i]
+            rgba_colors = numpy.zeros((len(tr[0]),4))
+            rgba_colors[:,0] = 1.0
+            rgba_colors[:,3] = tr[1]
+            axs[i][j].grid()
+            axs[i][j].scatter(numpy.ones_like(tr[0])*n,tr[0],color=rgba_colors)
+            axs[i][j].set_xlabel("t")
+            axs[i][j].set_ylabel("Rule Triggered")
+            axs[i][j].title.set_text(f"Reglas disparadas ({m} , {p})")
+                
 plt.show()

@@ -52,6 +52,7 @@ def rule_map(rules):
     axs[0][2].set_title('S1', fontsize=24)
     plt.show()
 
+
 #Maqina de Inferencia
 
 def FIS(E1, E2, rules, method="COG", samples=41, ran=[-1.0,1.0]):
