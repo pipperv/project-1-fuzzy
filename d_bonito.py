@@ -29,7 +29,7 @@ def plot_trajectory(method: str, initial_conditions: list, N=50) -> None:
         ax.plot(EP, TP, 'k')
         ax.set_xlabel("EP")
         ax.set_ylabel("TP")
-        ax.set_title(f'Trayectoria seguida por la planta con \n desfuzzificación {method} y \n condición inicial {initial_condition}')
+        ax.set_title(f'Trayectoria seguida por la planta con \n desdifusión {method} y \n condición inicial {initial_condition}')
     
     plt.show()
 
