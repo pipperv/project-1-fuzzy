@@ -37,7 +37,7 @@ rules = [[          ng, de_a(ng,pp), pg],
 def get_rules():
     return rules
 #
-def compute_plant(method,P0,PO=700,K=0.7,points=50):
+def compute_plant(method,P0,PO=700,K=0.7,points=50, get_EP_TP =False):
 	# Entrega una lista del valor de P en cada instancia de tiempo
 	# desde t=0 hasta t=points-1
 
@@ -50,13 +50,21 @@ def compute_plant(method,P0,PO=700,K=0.7,points=50):
 	P_list = [P0]
 	t_rules_list = []
 
+	if get_EP_TP:
+			TP_l = []
+			EP_l = []
+			S_l = []
+
 	for t in range(points):
 		TP = EP
 		EP = P - PO
 		TP -= EP
 
+		
+
 		norm_EP = numpy.sign(EP)*min(1,abs(EP/12))
 		norm_TP = numpy.sign(TP)*min(1,abs(TP/12))
+
 
 		S, sampling, out, t_rules = FIS(norm_EP,norm_TP,rules,method)
 
@@ -66,6 +74,13 @@ def compute_plant(method,P0,PO=700,K=0.7,points=50):
 		P_list.append(P)
 		t_rules_list.append(t_rules)
 
+		if get_EP_TP:
+			EP_l.append(norm_EP)
+			TP_l.append(norm_TP)
+			S_l.append(S)
+
+	if get_EP_TP:
+		return P_list, t_rules_list, EP_l, TP_l, S_l
 	return P_list, t_rules_list
 
 #plt.figure()
