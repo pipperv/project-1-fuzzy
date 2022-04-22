@@ -35,7 +35,7 @@ rules = [[          ng, de_a(ng,pp), pg],
 		 [ de_a(pp,pg), de_a(ng,nm), ng]]
 
 def get_rules():
-    return rules
+    return rules.copy()
 #
 def compute_plant(method,P0,PO=700,K=0.7,points=50, get_EP_TP =False):
 	# Entrega una lista del valor de P en cada instancia de tiempo
