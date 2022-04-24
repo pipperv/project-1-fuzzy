@@ -16,7 +16,7 @@ pg = [ 0.5, 0.8, 1.0, 1.0]
 
 #Reglas Difusas
 
-rules = [[          ng, de_a(ng,pp), pg],
+rules_ = [[          ng, de_a(ng,pp), pg],
 		 [ de_a(ng,nm), de_a(ng,np), pm],
 		 [          np, de_a(np,pi), pm],
 		 [          ni, de_a(ng,nm), pm],
@@ -35,9 +35,9 @@ rules = [[          ng, de_a(ng,pp), pg],
 		 [ de_a(pp,pg), de_a(ng,nm), ng]]
 
 def get_rules():
-    return rules.copy()
+    return rules_.copy()
 #
-def compute_plant(method,P0,PO=700,K=0.7,points=50, get_EP_TP =False):
+def compute_plant(method,P0,PO=700,K=0.7,points=50, get_EP_TP =False, rules=None):
 	# Entrega una lista del valor de P en cada instancia de tiempo
 	# desde t=0 hasta t=points-1
 
@@ -54,6 +54,10 @@ def compute_plant(method,P0,PO=700,K=0.7,points=50, get_EP_TP =False):
 			TP_l = []
 			EP_l = []
 			S_l = []
+	if not rules:
+		rules = get_rules()
+
+	print(len(rules))
 
 	for t in range(points):
 		TP = EP
@@ -64,9 +68,8 @@ def compute_plant(method,P0,PO=700,K=0.7,points=50, get_EP_TP =False):
 
 		norm_EP = numpy.sign(EP)*min(1,abs(EP/12))
 		norm_TP = numpy.sign(TP)*min(1,abs(TP/12))
-
-
-		S, sampling, out, t_rules = FIS(norm_EP,norm_TP,rules,method)
+	
+		S, sampling, out, t_rules = FIS(norm_EP,norm_TP,rules, method)
 
 		dH = S*12
 		dP = K * dH

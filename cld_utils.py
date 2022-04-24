@@ -1,3 +1,4 @@
+from hashlib import new
 import numpy
 import matplotlib.pyplot as plt
 
@@ -94,3 +95,16 @@ def FIS(E1, E2, rules, method="COG", samples=41, ran=[-1.0,1.0]):
             S = numpy.mean(mxs)
     
     return S, sampling, out, [t_rules,h_per_rule]
+
+
+def remove_rules(rules, i_rules):
+    for idx in i_rules:
+        rules[idx-1] = None
+
+    new_rules = []
+
+    for idx, rule in enumerate(rules):
+        if rule:
+            new_rules.append(rule)
+
+    return new_rules

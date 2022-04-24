@@ -2,15 +2,14 @@ import numpy
 from plant import *
 
 # Plots the trajectory followed by the plant in the plane EPxTP
-def plot_trajectory(method: str, initial_conditions: list, N=50, remove_rule=None) -> None:
+def plot_trajectory(method: str, initial_conditions: list, N=50, rules=None) -> None:
     x_values = numpy.linspace(-1,1,N)
     y_values = numpy.linspace(-1,1,N)
 
     X , Y = numpy.meshgrid(x_values, y_values)
 
-    rules = get_rules()
-    if remove_rule:
-        rules.pop(remove_rule)
+    if not rules:
+        rules = get_rules()
 
     Z = []
 
@@ -25,7 +24,7 @@ def plot_trajectory(method: str, initial_conditions: list, N=50, remove_rule=Non
 
     fig = plt.figure(figsize=plt.figaspect(0.5))
     for idx, initial_condition in enumerate(initial_conditions):
-        P, TR, EP, TP, controller_values  = compute_plant(method, initial_condition, get_EP_TP=True)
+        P, TR, EP, TP, controller_values  = compute_plant(method, initial_condition, get_EP_TP=True, rules=rules)
         ax = fig.add_subplot(1, 3, idx + 1)
         ax.pcolor(X,Y,Z)
         ax.plot(EP, TP, 'k')
