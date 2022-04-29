@@ -62,12 +62,16 @@ def FIS(E1, E2, rules, method="COG", samples=41, ran=[-1.0,1.0]):
     out = numpy.zeros_like(sampling)
     t_rules = []
     h_per_rule = []
+    centers = []
     for n, rule in enumerate(rules):
         h = min(memb_grade(E1,rule[0]),
           memb_grade(E2,rule[1]))
         #if h>0:
         t_rules.append(n+1)
         h_per_rule.append(h)
+        if method == "Heights":
+            Xh = (rule[2][1]+rule[2][2])/2
+            centers.append(Xh)
         for i, x in enumerate(sampling):
             f_x = min(h,memb_grade(x,rule[2]))
             out[i] = max(out[i],f_x)
@@ -78,12 +82,20 @@ def FIS(E1, E2, rules, method="COG", samples=41, ran=[-1.0,1.0]):
         else:
             S = numpy.sum(out*sampling)/numpy.sum(out)
         
-    if method == "FOM" or method == "Heights":
+    if method == "FOM":
         if numpy.sum(out) == 0:
             S = 0
         else:
             idx = numpy.argmax(out)
             S = sampling[idx]
+            
+    if method == "Heights":
+        if numpy.sum(out) == 0:
+            S = 0
+        else:
+            A1 = numpy.array(h_per_rule)
+            A2 = numpy.array(centers)
+            S = numpy.sum(A1[A1!=0]*A2[A1!=0])/numpy.sum(A1[A1!=0])
     
     if method == "MOM":
         if numpy.sum(out) == 0:

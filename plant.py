@@ -14,6 +14,12 @@ pp = [ 0.1, 0.2, 0.3, 0.4]
 pm = [ 0.2, 0.4, 0.5, 0.8]
 pg = [ 0.5, 0.8, 1.0, 1.0]
 
+fuzzy_interface = [ng,nm,np,ni,ce,pi,pp,pm,pg]
+fuzzy_names = ["ng","nm","np","ni","ce","pi","pp","pm","pg"]
+
+def get_sets():
+    return fuzzy_interface.copy(), fuzzy_names.copy()
+
 #Reglas Difusas
 
 rules_ = [[          ng, de_a(ng,pp), pg],

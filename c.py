@@ -5,15 +5,15 @@ import numpy
 X = range(50)
 
 init_p = [600,720,850]
-methodes = ['COG','FOM','MOM']
+methodes = ['COG','Heights','MOM']
 
 p_data = []
 tr_data = []
 
-for m in methodes:
+for p in init_p:
     tmp_p = []
     tmp_tr = []
-    for p in init_p:
+    for m in methodes:
         x, y = compute_plant(m,p)
         tmp_p.append(x)
         tmp_tr.append(y)
