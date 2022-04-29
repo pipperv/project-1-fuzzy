@@ -57,7 +57,6 @@ def compute_plant(method,P0,PO=700,K=0.7,points=50, get_EP_TP =False, rules=None
 	if not rules:
 		rules = get_rules()
 
-	print(len(rules))
 
 	for t in range(points):
 		TP = EP
@@ -72,7 +71,7 @@ def compute_plant(method,P0,PO=700,K=0.7,points=50, get_EP_TP =False, rules=None
 		S, sampling, out, t_rules = FIS(norm_EP,norm_TP,rules, method)
 
 		dH = S*12
-		dP = K * dH
+		dP = K * dH 
 		P += dP
 		P_list.append(P)
 		t_rules_list.append(t_rules)
@@ -85,6 +84,58 @@ def compute_plant(method,P0,PO=700,K=0.7,points=50, get_EP_TP =False, rules=None
 	if get_EP_TP:
 		return P_list, t_rules_list, EP_l, TP_l, S_l
 	return P_list, t_rules_list
+
+
+def compute_realistic_plant(method,P0,H0,PO=700,K=0.7,points=50, get_EP_TP =False, rules=None, c=0.5):
+	# Entrega una lista del valor de P en cada instancia de tiempo
+	# desde t=0 hasta t=points-1
+
+	#Condiciones Iniciales
+	P, H = P0, H0
+	EP, TP, dH, dP = 0, 0, 0, 0
+
+	points-=1
+
+	P_list, H_list = [P0], [H0]
+	t_rules_list = []
+
+	if get_EP_TP:
+			TP_l = []
+			EP_l = []
+			S_l = []
+	if not rules:
+		rules = get_rules()
+
+
+	for t in range(points):
+		TP = EP
+		EP = P - PO
+		TP -= EP
+
+		
+
+		norm_EP = numpy.sign(EP)*min(1,abs(EP/12))
+		norm_TP = numpy.sign(TP)*min(1,abs(TP/12))
+	
+		S, sampling, out, t_rules = FIS(norm_EP,norm_TP,rules, method)
+
+		dH = S*12
+		dP = K * dH + c * dP
+		P += dP
+		H += dH
+		H_list.append(P)
+		P_list.append(P)
+		t_rules_list.append(t_rules)
+
+		if get_EP_TP:
+			EP_l.append(norm_EP)
+			TP_l.append(norm_TP)
+			S_l.append(S)
+
+	if get_EP_TP:
+		return P_list, H_list, t_rules_list, EP_l, TP_l, S_l
+	return P_list, H_list, t_rules_list
+
 
 #plt.figure()
 #plt.plot(range(points+1),P_list)

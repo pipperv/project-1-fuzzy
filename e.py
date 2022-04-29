@@ -13,10 +13,15 @@ for i in range(17):
 
 """
 rules = get_rules()
-rules = remove_rules(rules, [8])
-plot_trajectory(method, initial_conditions, rules=rules)
+rules = remove_rules(rules, [8, 16, 17])
+
+methods = ['COG', 'Heights', 'MOM']
+initial_conditions = [600, 720, 850]
+
+for method in methods:
+    plot_trajectory(method, initial_conditions, rules=rules)
 
 # reglas que sirve extraer:
-# [1, 8, 16, 17]
+# [8, 16, 17]
 # la 8 es muy buena
 # la 16 no está tan mal

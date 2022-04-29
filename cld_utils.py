@@ -78,7 +78,7 @@ def FIS(E1, E2, rules, method="COG", samples=41, ran=[-1.0,1.0]):
         else:
             S = numpy.sum(out*sampling)/numpy.sum(out)
         
-    if method == "FOM":
+    if method == "FOM" or method == "Heights":
         if numpy.sum(out) == 0:
             S = 0
         else:
