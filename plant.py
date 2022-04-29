@@ -133,7 +133,7 @@ def compute_realistic_plant(method,P0,H0,PO=700,K=0.7,points=50, get_EP_TP =Fals
 			S_l.append(S)
 
 	if get_EP_TP:
-		return P_list, t_rules_list, EP_l, TP_l, S_l
+		return P_list, H_list, t_rules_list, EP_l, TP_l, S_l
 	return P_list, H_list, t_rules_list
 
 
