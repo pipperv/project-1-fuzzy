@@ -13,7 +13,7 @@ for i in range(17):
 
 """
 rules = get_rules()
-rules = remove_rules(rules, [8, 16, 17])
+rules = remove_rules(rules, [7, 16, 17])
 
 methods = ['COG', 'Heights', 'MOM']
 initial_conditions = [600, 720, 850]

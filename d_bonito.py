@@ -22,7 +22,7 @@ def plot_trajectory(method: str, initial_conditions: list, N=50, rules=None) -> 
 
     Z = numpy.array(Z)
 
-    fig = plt.figure(figsize=plt.figaspect(0.5))
+    fig = plt.figure(figsize=(15,6))
     for idx, initial_condition in enumerate(initial_conditions):
         P, TR, EP, TP, controller_values  = compute_plant(method, initial_condition, get_EP_TP=True, rules=rules)
         ax = fig.add_subplot(1, 3, idx + 1)
@@ -35,7 +35,7 @@ def plot_trajectory(method: str, initial_conditions: list, N=50, rules=None) -> 
     plt.show()
 
 if __name__ == '__main__':
-    methods = ['COG', 'FOM', 'MOM']
+    methods = ['COG', 'Heights', 'MOM']
     initial_conditions = [600, 720, 850]
 
     for method in methods:
