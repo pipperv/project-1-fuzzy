@@ -10,10 +10,10 @@ methodes = ['COG','FOM','MOM']
 p_data = []
 tr_data = []
 
-for p in init_p:
+for m in methodes:
     tmp_p = []
     tmp_tr = []
-    for m in methodes:
+    for p in init_p:
         x, y = compute_plant(m,p)
         tmp_p.append(x)
         tmp_tr.append(y)
@@ -35,8 +35,8 @@ fig.suptitle("Reglas Disparadas en distintos casos de Presión inicial y metodo 
 for i, A in enumerate(tr_data):
     for j, B in enumerate(A):
         for n, tr in enumerate(B):
-            p = init_p[j]
-            m = methodes[i]
+            p = init_p[i]
+            m = methodes[j]
             rgba_colors = numpy.zeros((len(tr[0]),4))
             rgba_colors[:,0] = 1.0
             rgba_colors[:,3] = tr[1]
