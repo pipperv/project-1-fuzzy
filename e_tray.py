@@ -12,8 +12,9 @@ for i in range(17):
     plot_trajectory(method, initial_conditions, remove_rule=i)
 
 """
+removed_rules = [3,4,5,6,7,8,9,12,13,14,15,16,17]
 rules = get_rules()
-rules = remove_rules(rules, [7, 16, 17])
+rules = remove_rules(rules, removed_rules)
 
 methods = ['COG', 'Heights', 'MOM']
 initial_conditions = [600, 720, 850]
