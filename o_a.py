@@ -48,10 +48,10 @@ def plot_realistic_trajectory(method: str, initial_conditions: list, N=50, rules
 
 
 
+if __name__ == "__main__":
+    methods = ['COG', 'Heights', 'MOM']
+    initial_conditions = [600, 720, 850]
 
-methods = ['COG', 'Heights', 'MOM']
-initial_conditions = [600, 720, 850]
 
-
-for method in methods:
-    plot_realistic_trajectory(method, initial_conditions)
+    for method in methods:
+        plot_realistic_trajectory(method, initial_conditions)

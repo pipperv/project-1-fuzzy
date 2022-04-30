@@ -92,7 +92,7 @@ def compute_plant(method,P0,PO=700,K=0.7,points=50, get_EP_TP =False, rules=None
 	return P_list, t_rules_list
 
 
-def compute_realistic_plant(method,P0,H0,PO=700,K=0.7,points=50, get_EP_TP =False, rules=None, c=0.5):
+def compute_realistic_plant(method,P0,H0=700,PO=700,K=0.7,points=50, get_EP_TP =False, rules=None, c=0.5):
 	# Entrega una lista del valor de P en cada instancia de tiempo
 	# desde t=0 hasta t=points-1
 
