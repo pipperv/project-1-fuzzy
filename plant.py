@@ -20,6 +20,12 @@ fuzzy_names = ["ng","nm","np","ni","ce","pi","pp","pm","pg"]
 def get_sets():
     return fuzzy_interface.copy(), fuzzy_names.copy()
 
+def get_dict_sets():
+	dict_sets = {}
+	for interface, name in zip(fuzzy_interface, fuzzy_names):
+		dict_sets[name] = interface
+	return dict_sets
+
 #Reglas Difusas
 
 rules_ = [[          ng, de_a(ng,pp), pg],

@@ -6,6 +6,9 @@ X = range(50)
 
 removed_rules = [7, 16, 17]
 rules = get_rules()
+dict_sets = get_dict_sets()
+# Modificar la regla 3
+rules[2][2] = dict_sets["pi"]
 rules = remove_rules(rules, removed_rules)
 
 string_rules = ' '.join([str(item) for item in removed_rules])
@@ -34,7 +37,7 @@ plt.subplots_adjust(left=0.1,
                     hspace=0.4)
 
 fig.subplots_adjust(top=0.9)
-fig.suptitle(f"Evolución de la Presión sin reglas {removed_rules}", fontsize=14)
+fig.suptitle(f"Evolución de la Presión sin reglas {removed_rules} y modificando la salida de la regla 3 de pm a pi", fontsize=14)
 
 axs[0][0].plot(X,P_COG_600)
 axs[0][0].title.set_text("Centro de Gravedad y P0 = 600")
