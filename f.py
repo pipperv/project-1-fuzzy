@@ -4,14 +4,24 @@ import matplotlib.pyplot as plt
 
 X = range(50)
 
-removed_rules = [7, 16, 17]
+
 rules = get_rules()
 dict_sets = get_dict_sets()
-# Modificar la regla 3
+# Modificar la regla 3 (reducir el sobrepaso)
 rules[2][2] = dict_sets["pi"]
-rules = remove_rules(rules, removed_rules)
+# Modificar la regla 10 (mejorar el tiempo de establecimiento)
+rules[9][2] = dict_sets["ng"]
+rules[8][2] = dict_sets["ng"]
+rules[7][2] = dict_sets["ng"]  
 
-string_rules = ' '.join([str(item) for item in removed_rules])
+# Mejorar la oscilaciones
+rules[15][2] = dict_sets["pi"]
+
+# Convergencia de el metodo alturas
+
+rules[11][2] = dict_sets["ng"]
+rules[13][2] = dict_sets["pg"]
+
 
 P_COG_600, TR_COG_600 = compute_plant('COG',600,rules=rules)
 P_COG_720, TR_COG_720 = compute_plant('COG',720,rules=rules)
@@ -37,7 +47,7 @@ plt.subplots_adjust(left=0.1,
                     hspace=0.4)
 
 fig.subplots_adjust(top=0.9)
-fig.suptitle(f"Evolución de la Presión sin reglas {removed_rules} y modificando la salida de la regla 3 de pm a pi", fontsize=14)
+fig.suptitle(f"Evolución de la Presión realizando las modificaciones en las reglas", fontsize=14)
 
 axs[0][0].plot(X,P_COG_600)
 axs[0][0].title.set_text("Centro de Gravedad y P0 = 600")
