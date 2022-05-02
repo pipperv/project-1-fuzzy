@@ -1,6 +1,7 @@
 from plant import *
 from cld_utils import *
 import matplotlib.pyplot as plt
+from d_bonito import plot_trajectory
 
 X = range(50)
 
@@ -84,3 +85,9 @@ for i in range(3):
         axs[i][j].grid()
 
 plt.show()
+
+methods = ['COG', 'Heights', 'MOM']
+initial_conditions = [600, 720, 850]
+
+for method in methods:
+    plot_trajectory(method, initial_conditions, rules=rules)
