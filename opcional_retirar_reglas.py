@@ -5,7 +5,7 @@ from plant import get_rules, compute_realistic_plant
 
 
 
-removed_rules = [2, 3, 4, 7, 16]
+removed_rules = [2, 3, 4, 5, 6, 7, 8, 12, 13, 14, 15, 16]
 rules = get_rules()
 rules = remove_rules(rules, removed_rules)
 
